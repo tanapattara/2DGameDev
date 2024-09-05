@@ -33,8 +33,18 @@ public class GatherInput : MonoBehaviour
         myControl.Player.Jump.performed -= JumpStart;
         myControl.Player.Jump.canceled -= JumpStop;
 
+        myControl.Player.Disable(); 
+    }
+    public void DisableControls() 
+    {
+        myControl.Player.Move.performed -= StartMove;
+        myControl.Player.Move.canceled -= StopMove;
+
+        myControl.Player.Jump.performed -= JumpStart;
+        myControl.Player.Jump.canceled -= JumpStop;
+
         myControl.Player.Disable();
-        //myControl.Disable();
+        valueX = 0;
     }
     private void StartMove(InputAction.CallbackContext ctx) {
         valueX = ctx.ReadValue<float>();
