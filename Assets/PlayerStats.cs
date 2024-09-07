@@ -9,8 +9,11 @@ public class PlayerStats : MonoBehaviour
 
     private bool canTakeDamage = true;
 
+    private Animator anim;
+
     void Start()
     {
+        anim = GetComponentInParent<Animator>();
         health = maxHealth;
     }
     public void TakeDamage(float damage)
@@ -21,6 +24,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         health -= damage;
+        anim.SetBool("Damage", true);
         if(health <= 0)
         {
             GetComponent<PolygonCollider2D>().enabled = false;
@@ -36,7 +40,11 @@ public class PlayerStats : MonoBehaviour
         if (health > 0)
         {
             canTakeDamage = true;
+            anim.SetBool("Damage", false);
         }
-        else { }
+        else 
+        {
+            anim.SetBool("Death", true);
+        }
     }
 }
