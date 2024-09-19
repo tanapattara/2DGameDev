@@ -17,6 +17,8 @@ public class PlayerMoveControls : MonoBehaviour
     public LayerMask groundLayer;
     public Transform leftPoint;
     private bool grounded = false;
+
+    public bool knockBack = false;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,9 @@ public class PlayerMoveControls : MonoBehaviour
     private void FixedUpdate()
     {
         CheckStatus();
+
+        if(knockBack) return;
+
         Move();
         JumpPlayer();
     }
@@ -67,5 +72,27 @@ public class PlayerMoveControls : MonoBehaviour
     private void CheckStatus() {
         RaycastHit2D leftCheckHit = Physics2D.Raycast(leftPoint.position, Vector2.down, rayLength, groundLayer);
         grounded = leftCheckHit;
+    }
+
+    public IEnumerator KnockBack(float forceX, float forceY,float duration, Transform otherObject)
+    {
+        int knockBackDirection;
+        if(transform.position.x < otherObject.position.x)
+        {
+            knockBackDirection = -1;
+        }
+        else
+        {
+            knockBackDirection = 1;
+        }
+
+        knockBack = true;
+        rigidbody2D.velocity = Vector2.zero;
+        Vector2 theForce = new Vector2(forceX * knockBackDirection, forceY);
+        rigidbody2D.AddForce(theForce, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(duration);
+        knockBack = false;
+        rigidbody2D.velocity = Vector2.zero;
     }
 }

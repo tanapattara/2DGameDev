@@ -16,8 +16,8 @@ TagManager:
   - Ground
   - PlayerStats
   - EnemyAttack
-  - 
-  - 
+  - Enemy
+  - PlayerAttack
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
     locked: 0
   - name: Middleground
     uniqueID: 4292926691
+    locked: 0
+  - name: Enemy
+    uniqueID: 1363546011
     locked: 0
   - name: Ground
     uniqueID: 3919752399
